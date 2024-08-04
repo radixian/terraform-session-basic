@@ -14,4 +14,5 @@ resource "aws_instance" "demo_web" {
  tags = {
    Name = "demo-web-instance"
  }
+ depends_on = [ aws_security_group.demo_web_sg ]
 }

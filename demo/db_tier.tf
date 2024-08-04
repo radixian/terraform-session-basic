@@ -25,6 +25,7 @@ resource "aws_rds_cluster_instance" "demo_db_instance" {
  identifier         = "demo-db-instance-${count.index}"
  cluster_identifier = aws_rds_cluster.demo_db_cluster.id
  instance_class     = var.db_instance_class
+ engine             = "aurora-mysql"
  tags = {
    Name = "demo-db-instance"
  }
@@ -33,8 +34,7 @@ resource "null_resource" "demo_db_setup" {
  depends_on = [aws_rds_cluster.demo_db_cluster]
  provisioner "local-exec" {
    command = <<-EOT
-     curl -o mysqlsampledatabase.sql
-https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatabase.sql
+     curl -o mysqlsampledatabase.sql https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatabase.sql
      mysql -h ${aws_rds_cluster.demo_db_cluster.endpoint} -u ${var.db_username} -p${var.db_password} ${var.db_name} < mysqlsampledatabase.sql
    EOT
  }
