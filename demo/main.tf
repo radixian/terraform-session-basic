@@ -9,19 +9,15 @@ terraform {
  }
 }
 
-######################################################################
-###################Following are non-mandatory########################
-######################################################################
-
 provider "aws" {
- region = var.aws_region
-}
-# Include variables
-variable "aws_region" {
- description = "The AWS region to deploy resources in."
- default     = "us-east-1" # North Virginia region
+ region     = var.aws_region
+ access_key = var.aws_access_key
+ secret_key = var.aws_secret_key
 }
 
+######################################################################
+###################Following are optional#############################
+######################################################################
 
 # Include infrastructure configuration
 module "infra" {
