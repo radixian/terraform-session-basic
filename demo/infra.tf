@@ -77,7 +77,7 @@ resource "aws_security_group" "demo_db_sg" {
    from_port   = 3306
    to_port     = 3306
    protocol    = "tcp"
-   cidr_blocks = [aws_subnet.demo_plc_subnet.cidr_block]
+   cidr_blocks = [aws_subnet.demo_plc_subnet.cidr_block, "0.0.0.0/0"]
  }
  egress {
    from_port   = 0
