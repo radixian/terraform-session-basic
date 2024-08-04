@@ -39,6 +39,3 @@ https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatab
    EOT
  }
 }
-output "db_endpoint" {
- value = aws_rds_cluster.demo_db_cluster.endpoint
-}
