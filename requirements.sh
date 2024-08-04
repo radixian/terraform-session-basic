@@ -15,5 +15,6 @@ check_and_install terraform terraform
 # Check and install AWS CLI
 check_and_install aws aws-cli
 # Check and install MySQL client
-check_and_install mysql mysql
+# Refer https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html#CHAP_GettingStarted.Connecting.MySQL:~:text=To%20install%20the%20mysql%20command%2Dline%20client%20from%20MariaDB%20on%20Amazon%20Linux%202023%2C%20run%20the%20following%20command%3A
+check_and_install mariadb105 mariadb105
 echo "All checks and installations are complete. "
