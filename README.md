@@ -6,6 +6,6 @@
 
 cd demo
 chmod u+x ./requirements.sh
-./requirements.sh
+sudo ./requirements.sh
 terraform init
 terraform apply
