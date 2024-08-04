@@ -14,20 +14,3 @@ provider "aws" {
  access_key = var.aws_access_key
  secret_key = var.aws_secret_key
 }
-
-######################################################################
-###################Following are optional#############################
-######################################################################
-
-# # Include infrastructure configuration
-# module "infra" {
-#  source = "./infra.tf"
-# }
-# # Include web tier configuration
-# module "web_tier" {
-#  source = "./web_tier.tf"
-# }
-# # Include db tier configuration
-# module "db_tier" {
-#  source = "./db_tier.tf"
-# }
