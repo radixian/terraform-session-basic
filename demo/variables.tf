@@ -28,6 +28,3 @@ variable "db_name" {
 variable "db_engine" {
  default = "aurora-mysql"
 }
-variable "db_engine_version" {
- default = "5.7.mysql_aurora.2.07.1"
-}

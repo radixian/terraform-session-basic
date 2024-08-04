@@ -8,7 +8,6 @@ resource "aws_db_subnet_group" "demo_db_subnet_group" {
 resource "aws_rds_cluster" "demo_db_cluster" {
  cluster_identifier      = "demo-db-cluster"
  engine                  = var.db_engine
- engine_version          = var.db_engine_version
  master_username         = var.db_username
  master_password         = var.db_password
  skip_final_snapshot     = true
@@ -27,7 +26,6 @@ resource "aws_rds_cluster_instance" "demo_db_instance" {
  cluster_identifier = aws_rds_cluster.demo_db_cluster.id
  instance_class     = var.db_instance_class
  engine             = var.db_engine
- engine_version     = var.db_engine_version
  tags = {
    Name = "demo-db-instance"
  }
