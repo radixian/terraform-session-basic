@@ -1,10 +1,11 @@
 # terraform-session
-A sample terraform template to kickstart a project.
+#A sample terraform template to kickstart a project.
 
-How to install Terraform?
+#Step1: Please clone this repository. You might have to install git first.
+#Step2: Run the following commands.
 
-wget https://releases.hashicorp.com/terraform/1.0.1/terraform_1.0.1_linux_amd64.zip
-sudo unzip terraform_1.0.1_linux_amd64.zip -d /usr/local/bin/
-rm terraform_1.0.1_linux_amd64.zip
-
-terraform version
+cd demo
+chmod u+x ./requirements.sh
+./requirements.sh
+terraform init
+terraform apply
