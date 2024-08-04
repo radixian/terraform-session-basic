@@ -19,15 +19,15 @@ provider "aws" {
 ###################Following are optional#############################
 ######################################################################
 
-# Include infrastructure configuration
-module "infra" {
- source = "./infra.tf"
-}
-# Include web tier configuration
-module "web_tier" {
- source = "./web_tier.tf"
-}
-# Include db tier configuration
-module "db_tier" {
- source = "./db_tier.tf"
-}
+# # Include infrastructure configuration
+# module "infra" {
+#  source = "./infra.tf"
+# }
+# # Include web tier configuration
+# module "web_tier" {
+#  source = "./web_tier.tf"
+# }
+# # Include db tier configuration
+# module "db_tier" {
+#  source = "./db_tier.tf"
+# }
