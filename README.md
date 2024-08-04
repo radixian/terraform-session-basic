@@ -4,8 +4,8 @@
 #Step1: Please clone this repository. You might have to install git first.
 #Step2: Run the following commands.
 
-cd demo \n
-chmod u+x ./requirements.sh \n
-./requirements.sh \n
-terraform init \n
-terraform apply \n
+cd demo
+chmod u+x ./requirements.sh
+./requirements.sh
+terraform init
+terraform apply
