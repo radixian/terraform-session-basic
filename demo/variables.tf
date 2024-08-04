@@ -25,6 +25,9 @@ variable "db_instance_class" {
 variable "db_name" {
  default = "demo_db"
 }
+variable "db_username" {
+ default = "demo_db_user"
+}
 variable "db_engine" {
  default = "aurora-mysql"
 }
