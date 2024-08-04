@@ -35,8 +35,7 @@ resource "null_resource" "demo_db_setup" {
  provisioner "local-exec" {
    command = <<-EOT
      echo "Fetching sample database schema..."
-     curl -o mysqlsampledatabase.sql
-https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatabase.sql
+     curl -o mysqlsampledatabase.sql https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatabase.sql
      echo "Testing MySQL connection..."
      mysql -h ${aws_rds_cluster.demo_db_cluster.endpoint} -u ${var.db_username} -p${var.db_password} -e "SHOW DATABASES;"
      echo "Importing sample database schema..."
