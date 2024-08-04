@@ -17,5 +17,5 @@ variable "db_instance_class" {
  default = "db.t3.micro"
 }
 variable "db_name" {
- default = "sampledb"
+ default = "demo_db"
 }
