@@ -1,46 +1,49 @@
-resource "aws_vpc" "main" {
+resource "aws_vpc" "demo_vpc" {
  cidr_block = var.vpc_cidr
  tags = {
-   Name = "main-vpc"
+   Name = "demo-vpc"
  }
 }
-resource "aws_subnet" "public" {
- vpc_id                  = aws_vpc.main.id
+resource "aws_subnet" "demo_plc_subnet" {
+ vpc_id                  = aws_vpc.demo_vpc.id
  cidr_block              = var.public_subnet_cidr
  map_public_ip_on_launch = true
  tags = {
-   Name = "public-subnet"
+   Name = "demo-public-subnet"
  }
 }
-resource "aws_subnet" "private" {
- vpc_id     = aws_vpc.main.id
+resource "aws_subnet" "demo_pvt_subnet" {
+ vpc_id     = aws_vpc.demo_vpc.id
  cidr_block = var.private_subnet_cidr
  tags = {
-   Name = "private-subnet"
+   Name = "demo-private-subnet"
  }
 }
-resource "aws_internet_gateway" "igw" {
- vpc_id = aws_vpc.main.id
+resource "aws_internet_gateway" "demo_igw" {
+ vpc_id = aws_vpc.demo_vpc.id
+
  tags = {
-   Name = "main-igw"
+   Name = "demo-igw"
  }
 }
-resource "aws_route_table" "public" {
- vpc_id = aws_vpc.main.id
+resource "aws_route_table" "demo_routetable" {
+ vpc_id = aws_vpc.demo_vpc.id
+
  route {
    cidr_block = "0.0.0.0/0"
-   gateway_id = aws_internet_gateway.igw.id
+   gateway_id = aws_internet_gateway.demo_igw.id
  }
  tags = {
-   Name = "public-route-table"
+   Name = "demo-route-table"
  }
 }
-resource "aws_route_table_association" "public" {
- subnet_id      = aws_subnet.public.id
- route_table_id = aws_route_table.public.id
+resource "aws_route_table_association" "demo_routetable_assoc" {
+ subnet_id      = aws_subnet.demo_plc_subnet.id
+ route_table_id = aws_route_table.demo_routetable.id
 }
-resource "aws_security_group" "web_sg" {
- vpc_id = aws_vpc.main.id
+resource "aws_security_group" "demo_web_sg" {
+ vpc_id = aws_vpc.demo_vpc.id
+
  ingress {
    from_port   = 80
    to_port     = 80
@@ -54,16 +57,17 @@ resource "aws_security_group" "web_sg" {
    cidr_blocks = ["0.0.0.0/0"]
  }
  tags = {
-   Name = "web-sg"
+   Name = "demo-web-sg"
  }
 }
-resource "aws_security_group" "db_sg" {
- vpc_id = aws_vpc.main.id
+resource "aws_security_group" "demo_db_sg" {
+ vpc_id = aws_vpc.demo_vpc.id
+
  ingress {
    from_port   = 3306
    to_port     = 3306
    protocol    = "tcp"
-   cidr_blocks = [aws_subnet.public.cidr_block]
+   cidr_blocks = [aws_subnet.demo_plc_subnet.cidr_block]
  }
  egress {
    from_port   = 0
@@ -72,6 +76,6 @@ resource "aws_security_group" "db_sg" {
    cidr_blocks = ["0.0.0.0/0"]
  }
  tags = {
-   Name = "db-sg"
+   Name = "demo-db-sg"
  }
 }
