@@ -13,12 +13,21 @@ variable "private_subnet_cidr_a" {
 variable "private_subnet_cidr_b" {
  default = "10.0.3.0/24"
 }
+variable "ec2_ami" {
+ default = "ami-0ba9883b710b05ac6" # Amazon Linux 2 AMI
+}
 variable "instance_type" {
  default = "t2.micro"
 }
 variable "db_instance_class" {
- default = "db.t3.micro"
+ default = "db.r5.large"
 }
 variable "db_name" {
  default = "demo_db"
+}
+variable "db_engine" {
+ default = "aurora-mysql"
+}
+variable "db_engine_version" {
+ default = "5.7.mysql_aurora.2.07.1"
 }

@@ -1,8 +1,8 @@
 resource "aws_instance" "demo_web" {
- ami           = "ami-0ba9883b710b05ac6" # Amazon Linux 2 AMI
+ ami           = var.ec2_ami 
  instance_type = var.instance_type
  subnet_id     = aws_subnet.demo_plc_subnet.id
- security_groups = [aws_security_group.demo_web_sg.name]
+ security_groups = [aws_security_group.demo_web_sg.id]
  user_data = <<-EOF
              #!/bin/bash
              yum update -y
@@ -14,5 +14,5 @@ resource "aws_instance" "demo_web" {
  tags = {
    Name = "demo-web-instance"
  }
- depends_on = [ aws_security_group.demo_web_sg ]
+ depends_on = [ aws_vpc.demo_vpc, aws_subnet.demo_plc_subnet, aws_security_group.demo_web_sg ]
 }

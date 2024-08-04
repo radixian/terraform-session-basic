@@ -7,7 +7,8 @@ resource "aws_db_subnet_group" "demo_db_subnet_group" {
 }
 resource "aws_rds_cluster" "demo_db_cluster" {
  cluster_identifier      = "demo-db-cluster"
- engine                  = "aurora-mysql"
+ engine                  = var.db_engine
+ engine_version          = var.db_engine_version
  master_username         = var.db_username
  master_password         = var.db_password
  skip_final_snapshot     = true
@@ -25,13 +26,14 @@ resource "aws_rds_cluster_instance" "demo_db_instance" {
  identifier         = "demo-db-instance-${count.index}"
  cluster_identifier = aws_rds_cluster.demo_db_cluster.id
  instance_class     = var.db_instance_class
- engine             = "aurora-mysql"
+ engine             = var.db_engine
+ engine_version     = var.db_engine_version
  tags = {
    Name = "demo-db-instance"
  }
 }
 resource "null_resource" "demo_db_setup" {
- depends_on = [aws_rds_cluster.demo_db_cluster]
+ depends_on = [aws_rds_cluster.demo_db_cluster, aws_rds_instance.demo_db_instance]
  provisioner "local-exec" {
    command = <<-EOT
      curl -o mysqlsampledatabase.sql https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatabase.sql
