@@ -33,7 +33,7 @@ resource "aws_rds_cluster_instance" "demo_db_instance" {
  }
 }
 resource "null_resource" "demo_db_setup" {
- depends_on = [aws_rds_cluster.demo_db_cluster, aws_rds_instance.demo_db_instance]
+ depends_on = [aws_rds_cluster.demo_db_cluster, aws_rds_cluster_instance.demo_db_instance]
  provisioner "local-exec" {
    command = <<-EOT
      curl -o mysqlsampledatabase.sql https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatabase.sql
