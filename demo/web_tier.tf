@@ -9,7 +9,7 @@ resource "aws_instance" "demo_web" {
              yum install -y httpd mariadb105
              systemctl start httpd
              systemctl enable httpd
-             echo "Hello, World from $(hostname -f)" > /var/www/html/index.html
+             #Download the schema
              curl -o /tmp/mysqlsampledatabase.sql https://raw.githubusercontent.com/hhorak/mysql-sample-db/master/mysqlsampledatabase.sql
              #Wait for the RDS instance to be available
              while ! nc -z ${aws_rds_cluster.demo_db_cluster.endpoint} 3306; do
@@ -20,8 +20,19 @@ resource "aws_instance" "demo_web" {
              mysql -h ${aws_rds_cluster.demo_db_cluster.endpoint} -u ${var.db_username} -p${var.db_password} ${var.db_name} < /tmp/mysqlsampledatabase.sql
              rm -f /tmp/mysqlsampledatabase.sql
              EOF
+ 
+ provisioner "file" {
+   source      = "../web/index.html"
+   destination = "/var/www/html/index.html"
+ }
+
  tags = {
    Name = "demo-web-instance"
  }
- depends_on = [ aws_vpc.demo_vpc, aws_subnet.demo_plc_subnet, aws_security_group.demo_web_sg, aws_rds_cluster.demo_db_cluster ]
+ depends_on = [ 
+  aws_vpc.demo_vpc, 
+  aws_subnet.demo_plc_subnet, 
+  aws_security_group.demo_web_sg, 
+  aws_rds_cluster.demo_db_cluster 
+ ]
 }
